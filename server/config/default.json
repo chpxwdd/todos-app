@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": 5000
+  },
+  "db": {
+    "path": "mongodb://localhost:27017/todosdb",
+    "options": {
+      "useCreateIndex": true,
+      "useNewUrlParser": true
+    }
+  }
+}
