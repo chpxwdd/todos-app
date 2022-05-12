@@ -1,11 +1,11 @@
-import React, {Fragment} from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from "react";
+import { BrowserRouter} from "react-router-dom";
 import { useRoutes } from "./routes";
 import { useAuth } from "./hooks/auth.hook";
 import { AuthContext } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import { Loader } from "./components/Loader";
-import 'materialize-css'
+import "./styles/todos.scss";
 
 export const App = () => {
   const { token, login, logout, userId, ready } = useAuth();
@@ -26,13 +26,7 @@ export const App = () => {
         isAuthenticated,
       }}
     >
-      <Router>
-        <Fragment>
-          {isAuthenticated && <Navbar />}
-          <div className="container">{routes}</div>
-        </Fragment>
-      </Router>
+      <BrowserRouter>{routes}</BrowserRouter>
     </AuthContext.Provider>
   );
-}
-
+};
