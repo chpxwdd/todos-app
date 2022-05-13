@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
-// import {useMessage} from '../hooks/message.hook'
 import { AuthContext } from "../context/AuthContext";
 
 export const UserLoginPage = () => {
   const auth = useContext(AuthContext);
-  // const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({
     email: "",
@@ -13,15 +11,8 @@ export const UserLoginPage = () => {
   });
 
   useEffect(() => {
-    // message(error);
     clearError();
-    // }, [error, message, clearError]);
   }, [error, clearError]);
-
-  // useEffect(() => {
-  //   window.M.updateTextFields();
-  // }, []);
-
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
@@ -29,7 +20,6 @@ export const UserLoginPage = () => {
   const registerHandler = async () => {
     try {
       const data = await request("/api/auth/register", "POST", { ...form });
-      // message(data.message);
     } catch (e) {}
   };
 
@@ -42,13 +32,13 @@ export const UserLoginPage = () => {
 
   return (
     <section className="user-login_form row">
-      <form className="col-md-6 col-sm-10 offset-md-3 offset-sm-1 p-3">
+      <form className="col-lg-4 col-md-8 col-sm-10 col-xs-10 offset-lg-4 offset-md-3 offset-sm-1 p-3">
         <h3 className="mb-5 text-center">Авторизация</h3>
         <div className="mb-3 row">
-          <label for="email" class="col-sm-3 col-form-label">
+          <label htmlFor="email" className="col-sm-3 col-form-label">
             Email
           </label>
-          <div class="col-sm-9">
+          <div className="col-sm-9">
             <input
               name="email"
               type="email"
@@ -61,10 +51,10 @@ export const UserLoginPage = () => {
           </div>
         </div>
         <div className="mb-3 row">
-          <label for="password" class="col-sm-3 col-form-label">
+          <label htmlFor="password" className="col-sm-3 col-form-label">
             Password
           </label>
-          <div class="col-sm-9">
+          <div className="col-sm-9">
             <input
               name="password"
               type="password"
@@ -76,15 +66,18 @@ export const UserLoginPage = () => {
             />
           </div>
         </div>
-        <div class="d-grid">
+        <hr />
+        <div className="d-grid">
           <button
             type="submit"
-            class="btn btn-lg btn-primary justify-content-center"
+            className="btn btn-lg btn-primary justify-content-center"
+            disabled={loading}
+            onClick={loginHandler}
           >
             Sign in
           </button>
         </div>
-        <div class="d-flex justify-content-between text-muted">
+        <div className="d-flex justify-content-between text-muted">
           <a href="/user/forgot-password" className="btn btn-sm btn-link">
             Forgot password
           </a>
