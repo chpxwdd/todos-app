@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const config = require("config");
 
 const modelCoreUser = require("../models/core.user");
 const modelCoreRole = require("../models/core.role");
@@ -9,7 +10,7 @@ const register = async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) return res.status(400).json(errors);
-  
+
   const user = await modelCoreUser.findOne({ email: req.body.email }).exec();
 
   if (user) {
@@ -84,11 +85,11 @@ const login = async (req, res) => {
       errors.password = "Incorrect Password";
       return res.status(400).json(errors);
     }
-    const payload = { id: user.id, username: user.username, role: user.role };
+    const payload = { id: user._id, username: user.username, role: user.role };
     const jwtOptions = { expiresIn: 3600 };
-    const jwtPhrase = "secret";
 
-    jwt.sign(payload, jwtPhrase, jwtOptions, (err, token) => {
+
+    jwt.sign(payload,  config.get('jwtPhrase'), jwtOptions, (err, token) => {
       if (err) {
         console.error("There is some error in token", err);
         return;

@@ -1,10 +1,10 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import { Loader } from '../components/Loader'
-import { TodosList } from '../components/TodosList'
+import { TodoList } from '../components/TodoList'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 
-export const TodosPage = () => {
+export const TodoListPage = () => {
   const [links, setLinks] = useState([])
   const { loading, request } = useHttp()
   const { token } = useContext(AuthContext)
@@ -26,5 +26,5 @@ export const TodosPage = () => {
     return <Loader />
   }
 
-  return <>{!loading && <TodosList links={links} />}</>
+  return <>{!loading && <TodoList links={links} />}</>
 }

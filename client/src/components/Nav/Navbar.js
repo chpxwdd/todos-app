@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -37,7 +37,12 @@ export const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/todos" className="nav-link">
+              <NavLink to="/todo/list" className="nav-link">
+                Todos list
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/todo/create" className="nav-link">
                 Todos list
               </NavLink>
             </li>

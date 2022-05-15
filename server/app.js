@@ -34,6 +34,6 @@ require("./routes/core.user")(app);
 require("./routes/todo")(app);
 
 const passport = require("passport");
-require("./config/passport")(passport);
+require("./middleware/passport")(passport);
 app.use(passport.initialize());
 serverStart();
