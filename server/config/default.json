@@ -1,6 +1,7 @@
 {
   "server": {
-    "port": 5000
+    "port": 5000,
+    "baseUrl":"http://localhost"
   },
   "db": {
     "path": "mongodb://localhost:27017/todosdb",
@@ -8,5 +9,7 @@
       "useCreateIndex": true,
       "useNewUrlParser": true
     }
-  }
+  },
+  "jwtPhrase":"secret",
+  
 }

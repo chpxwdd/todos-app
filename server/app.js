@@ -31,6 +31,8 @@ async function serverStart() {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 require("./routes/core.user")(app);
+require("./routes/todo")(app);
+
 const passport = require("passport");
 require("./config/passport")(passport);
 app.use(passport.initialize());
