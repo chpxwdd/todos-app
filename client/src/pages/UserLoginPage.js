@@ -1,34 +1,34 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useHttp } from "../hooks/http.hook";
-import { AuthContext } from "../context/AuthContext";
+import React, { useContext, useEffect, useState } from 'react'
+import { useHttp } from '../hooks/http.hook'
+import { AuthContext } from '../context/AuthContext'
 
 export const UserLoginPage = () => {
-  const auth = useContext(AuthContext);
-  const { loading, request, error, clearError } = useHttp();
+  const auth = useContext(AuthContext)
+  const { loading, request, error, clearError } = useHttp()
   const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+    email: '',
+    password: '',
+  })
 
   useEffect(() => {
-    clearError();
-  }, [error, clearError]);
+    clearError()
+  }, [error, clearError])
   const changeHandler = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
-  };
+    setForm({ ...form, [event.target.name]: event.target.value })
+  }
 
   const registerHandler = async () => {
     try {
-      const data = await request("/api/auth/register", "POST", { ...form });
+      const data = await request('/api/auth/register', 'POST', { ...form })
     } catch (e) {}
-  };
+  }
 
   const loginHandler = async () => {
     try {
-      const data = await request("/api/auth/login", "POST", { ...form });
-      auth.login(data.token, data.userId);
+      const data = await request('/api/auth/login', 'POST', { ...form })
+      auth.login(data.token, data.userId)
     } catch (e) {}
-  };
+  }
 
   return (
     <section className="user-login_form row">
@@ -87,5 +87,5 @@ export const UserLoginPage = () => {
         </div>
       </form>
     </section>
-  );
-};
+  )
+}

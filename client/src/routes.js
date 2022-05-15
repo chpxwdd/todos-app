@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { DashboardPage } from "./pages/DashboardPage";
 import { TodosPage } from "./pages/TodosPage";
-import { UserRegisterPage } from "./pages/UserRegisterPage";
 import { UserLoginPage } from "./pages/UserLoginPage";
 import Navbar from "./components/Navbar";
 
