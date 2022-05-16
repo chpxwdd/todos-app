@@ -13,7 +13,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-light bg-light">
+    <nav className="navbar navbar-expand-sm  navbar-dark bg-dark">
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -32,18 +32,18 @@ export const Navbar = () => {
           </span>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink to="/dashboard" className="nav-link">
+              <NavLink to="/dashboard" className="nav-link active">
                 Dashboard
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/todo/list" className="nav-link">
-                Todos list
+                List
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/todo/create" className="nav-link">
-                Todos list
+                Add
               </NavLink>
             </li>
           </ul>

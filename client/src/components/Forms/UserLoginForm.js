@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const AuthLoginForm = (props) => {
+export const UserLoginForm = (props) => {
   const { loading, changeHandler, loginHandler, form } = props
   return (
     <form className="col-lg-4 col-md-8 col-sm-10 col-xs-10 offset-lg-4 offset-md-3 offset-sm-1 p-3">
@@ -48,13 +48,9 @@ export const AuthLoginForm = (props) => {
           Sign in
         </button>
       </div>
-      <div className="d-flex justify-content-between text-muted">
-        <a href="/user/forgot-password" className="btn btn-sm btn-link">
-          Forgot password
-        </a>
-        <a href="/user/register" className="btn btn-sm btn-link">
-          Registration
-        </a>
+      <div className="d-flex justify-content-between text-muted text-small">
+        <a href="/user/forgot-password"><small>Forgot password</small></a>
+        <a href="/user/register"><small>Registration</small></a>
       </div>
     </form>
   )

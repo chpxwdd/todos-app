@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/AuthContext'
-import { AuthLoginForm } from '../components/Forms/AuthLoginForm'
+import { UserLoginForm } from '../components/Forms/UserLoginForm'
 
 export const UserLoginPage = () => {
   const auth = useContext(AuthContext)
@@ -11,23 +11,18 @@ export const UserLoginPage = () => {
     password: '',
   })
 
-  useEffect(() => {
-    clearError()
-  }, [error, clearError])
-  const changeHandler = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value })
-  }
+  useEffect(() => clearError(), [error, clearError])
+
+  const changeHandler = (event) => setForm({ ...form, [event.target.name]: event.target.value })
 
   const loginHandler = async () => {
-    try {
-      const data = await request('/api/auth/login', 'POST', { ...form })
-      auth.login(data.token, data.userId)
-    } catch (e) {}
+    const data = await request('/api/auth/login', 'POST', { ...form })
+    auth.login(data.token, data.userId)
   }
 
   return (
     <section className="user-login_form row">
-      <AuthLoginForm loading={loading} changeHandler={changeHandler} loginHandler={loginHandler} form={form}/>
+      <UserLoginForm loading={loading} changeHandler={changeHandler} loginHandler={loginHandler} form={form} />
     </section>
   )
 }
