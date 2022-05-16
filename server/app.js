@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 
 const PORT = config.get("server").get("port") || 5000;
 const app = express();
