@@ -46,6 +46,35 @@ export const Navbar = () => {
                 Add
               </NavLink>
             </li>
+            <li className="nav-item dropdown">
+              <span
+                className="nav-link dropdown-toggle"
+                href=""
+                id="navbarDropdownGeo"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                GeoNames Tools
+              </span>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownGeo">
+                <li>
+                  <NavLink to="/geo/countries" className="dropdown-item">
+                    Countries
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/geo/regions" className="dropdown-item">
+                    Regions
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/geo/cities" className="dropdown-item">
+                    Cities
+                  </NavLink>
+                </li>
+              </ul>
+            </li>
           </ul>
 
           <ul className="navbar-nav d-flex">

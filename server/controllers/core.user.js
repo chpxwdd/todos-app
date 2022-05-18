@@ -17,11 +17,18 @@ const register = async (req, res) => {
     return res.status(400).json({ email: "Email already exists", ...errors });
 
   modelCoreRole.findOne({ title: "member" }).exec((err, member) => {
-    if (err) return console.error("Please re-install data", err);
+    if (err) {
+      console.error("Please re-install data", err);
+      return res
+        .status(400)
+        .json({ register: "Please re-install data", ...errors });
+    }
 
     bcrypt.genSalt(10, (err, salt) => {
-      if (err) return console.error("There was an error", err);
-
+      if (err) {
+        console.error("There was an error", err);
+        return res.status(400).json({ salt: err, ...errors });
+      }
       const { username, email, password } = req.body;
       const role = member._id;
 
@@ -31,7 +38,10 @@ const register = async (req, res) => {
         new modelCoreUser({ username, email, password, role })
           .save()
           .then((user) => res.json(user))
-          .catch((err) => console.error("Save with error:", err));
+          .catch((err) => {
+            console.error("Save with error:", err);
+            return res.status(400).json({ save: err, ...errors });
+          });
       });
     });
   });
@@ -56,17 +66,22 @@ const login = async (req, res) => {
   bcrypt.compare(password, user.password).then((isMatch) => {
     if (!isMatch) {
       errors.password = "Incorrect Password";
-      return res.status(400).json(errors);
+      return res.status(401).json(errors);
     }
 
     const payload = { id: user._id, username: user.username, role: user.role };
     const jwtOptions = { expiresIn: 3600 };
 
     jwt.sign(payload, config.get("jwtPhrase"), jwtOptions, (err, token) => {
-      if (err) return console.error("There is some error in token", err);
+      if (err) {
+        // console.error("There is some error in token", err);
+        errors.sign = "There is some error in token";
+        return res.status(401).json(errors);
+      }
 
-      res.status(200).json({
-        token: `Bearer ${token}`,
+      res.json({
+        success: true,
+        token: token,
         user: user.username,
         role: role.title,
       });
@@ -77,7 +92,7 @@ const login = async (req, res) => {
 const me = async (req, res) => {
   const { id, username, email } = req.user;
   /** @todo fetch all user data */
-  return res.status(200).json({ id, username, email });
+  return res.json({ id, username, email });
 };
 
 exports.login = login;
