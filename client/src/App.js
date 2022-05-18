@@ -1,18 +1,18 @@
-import React from "react";
-import { BrowserRouter} from "react-router-dom";
-import { useRoutes } from "./routes";
-import { useAuth } from "./hooks/auth.hook";
-import { AuthContext } from "./context/AuthContext";
-import { Loader } from "./components/Loader";
-import "./styles/todos.scss";
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { AuthContext } from './context/AuthContext'
+import { Spinner } from './components/bootstrap/Spinner'
+import { useAuth } from './hooks/auth.hook'
+import { useRoutes } from './routes'
+import './styles/todos.scss'
 
 export const App = () => {
-  const { token, login, logout, userId, ready } = useAuth();
-  const isAuthenticated = !!token;
-  const routes = useRoutes(isAuthenticated);
+  const { token, login, logout, userId, ready } = useAuth()
+  const isAuthenticated = !!token
+  const routes = useRoutes(isAuthenticated)
 
   if (!ready) {
-    return <Loader />;
+    return <Spinner />
   }
 
   return (
@@ -27,5 +27,5 @@ export const App = () => {
     >
       <BrowserRouter>{routes}</BrowserRouter>
     </AuthContext.Provider>
-  );
-};
+  )
+}

@@ -4,7 +4,7 @@ import { DashboardPage } from './pages/DashboardPage'
 import { TodoListPage } from './pages/TodoListPage'
 import { TodoCreatePage } from './pages/TodoCreatePage'
 import { UserLoginPage } from './pages/UserLoginPage'
-import Navbar from './components/Nav/Navbar'
+import { Navbar } from './components/navs/Navbar'
 
 export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {

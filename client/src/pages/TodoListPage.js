@@ -1,6 +1,6 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
-import { Loader } from '../components/Loader'
-import { TodoList } from '../components/TodoList'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { Spinner } from '../components/bootstrap/Spinner'
+import { TodoList } from '../components/todo/TodoList'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 
@@ -15,7 +15,9 @@ export const TodoListPage = () => {
         Authorization: token,
       })
       setLinks(fetched)
-    } catch (e) {console.error("error: ", e)}
+    } catch (e) {
+      console.error('error: ', e)
+    }
   }, [token, request])
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export const TodoListPage = () => {
   }, [fetchTodos])
 
   if (loading) {
-    return <Loader />
+    return <Spinner />
   }
 
   return <>{!loading && <TodoList links={links} />}</>

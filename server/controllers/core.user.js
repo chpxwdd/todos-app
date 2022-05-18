@@ -13,55 +13,28 @@ const register = async (req, res) => {
 
   const user = await modelCoreUser.findOne({ email: req.body.email }).exec();
 
-  if (user) {
-    errors.email = "Email already exists";
-    return res.status(400).json(errors);
-  }
+  if (user)
+    return res.status(400).json({ email: "Email already exists", ...errors });
 
-  const ROLE_MEMBER = "member";
+  modelCoreRole.findOne({ title: "member" }).exec((err, member) => {
+    if (err) return console.error("Please re-install data", err);
 
-  modelCoreRole
-    .findOne({
-      title: ROLE_MEMBER,
-    })
-    .exec((err, member) => {
-      if (err) {
-        console.error(
-          "Can`t find role member in DB. Please re-install data",
-          err
-        );
-        return;
-      }
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) {
-          console.error("There was an error", err);
-          return;
-        }
-        const { username, email, password } = req.body;
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) return console.error("There was an error", err);
 
-        bcrypt.hash(password, salt, (err, hash) => {
-          if (err) {
-            console.error("There was an error", err);
-            return;
-          }
-          var coreUser = new modelCoreUser({
-            username,
-            email,
-            password: hash,
-            role: member._id,
-          });
+      const { username, email, password } = req.body;
+      const role = member._id;
 
-          coreUser
-            .save()
-            .then((user) => {
-              res.json(user);
-            })
-            .catch((err) => {
-              console.error("Registered user is not save with error:", err);
-            });
-        });
+      bcrypt.hash(password, salt, (err, password) => {
+        if (err) return console.error("There was an error", err);
+
+        new modelCoreUser({ username, email, password, role })
+          .save()
+          .then((user) => res.json(user))
+          .catch((err) => console.error("Save with error:", err));
       });
     });
+  });
 };
 
 const login = async (req, res) => {
@@ -85,21 +58,17 @@ const login = async (req, res) => {
       errors.password = "Incorrect Password";
       return res.status(400).json(errors);
     }
+
     const payload = { id: user._id, username: user.username, role: user.role };
     const jwtOptions = { expiresIn: 3600 };
 
+    jwt.sign(payload, config.get("jwtPhrase"), jwtOptions, (err, token) => {
+      if (err) return console.error("There is some error in token", err);
 
-    jwt.sign(payload,  config.get('jwtPhrase'), jwtOptions, (err, token) => {
-      if (err) {
-        console.error("There is some error in token", err);
-        return;
-      }
-
-      res.json({
-        success: true,
+      res.status(200).json({
         token: `Bearer ${token}`,
-        userId: user.username,
-        roleId: role.name,
+        user: user.username,
+        role: role.title,
       });
     });
   });
@@ -107,7 +76,8 @@ const login = async (req, res) => {
 
 const me = async (req, res) => {
   const { id, username, email } = req.user;
-  return res.json({ id, username, email });
+  /** @todo fetch all user data */
+  return res.status(200).json({ id, username, email });
 };
 
 exports.login = login;
