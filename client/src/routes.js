@@ -21,11 +21,11 @@ export const useRoutes = (isAuthenticated) => {
               <Route path="/dashboard" exact element={<DashboardPage />}></Route>
               <Route path="/todo/list" exact element={<TodoListPage />}></Route>
               <Route path="/todo/create" exact element={<TodoCreatePage />}></Route>
+              {/* <Route path="/todo/read/:id" exact element={<TodoReadPage />}></Route> */}
               <Route path="/geo/countries" exact element={<GeoCountriesPage />}></Route>
               <Route path="/geo/regions" exact element={<GeoCitiesPage />}></Route>
               <Route path="/geo/cities" exact element={<GeoRegionsPage />}></Route>
               <Route path="*" element={<Navigate to="/" replace />} />
-              {/* <Route path="/todo/read/:id" exact element={<TodoReadPage />}></Route> */}
             </Routes>
           </div>
         </main>

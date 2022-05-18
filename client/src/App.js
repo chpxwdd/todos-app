@@ -7,7 +7,7 @@ import { useRoutes } from './routes'
 import './styles/todos.scss'
 
 export const App = () => {
-  const { token, login, logout, userId, ready } = useAuth()
+  const { token, login, logout, user, role, ready } = useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
@@ -21,7 +21,8 @@ export const App = () => {
         token,
         login,
         logout,
-        userId,
+        user,
+        role,
         isAuthenticated,
       }}
     >

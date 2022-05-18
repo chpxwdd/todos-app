@@ -19,20 +19,20 @@ export const Navbar = () => {
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#clanavbarToggler"
-          aria-controls="clanavbarToggler"
+          data-bs-target="#appNavbarToggler"
+          aria-controls="appNavbarToggler"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="clanavbarToggler">
+        <div className="collapse navbar-collapse" id="appNavbarToggler">
           <span className="navbar-brand" href="/">
             Todos App
           </span>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink to="/dashboard" className="nav-link active">
+              <NavLink to="/dashboard" className="nav-link">
                 Dashboard
               </NavLink>
             </li>
@@ -57,7 +57,7 @@ export const Navbar = () => {
               >
                 GeoNames Tools
               </span>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownGeo">
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdownGeo">
                 <li>
                   <NavLink to="/geo/countries" className="dropdown-item">
                     Countries

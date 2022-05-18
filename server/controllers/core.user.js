@@ -51,20 +51,27 @@ const login = async (req, res) => {
   const validateLoginInput = require("../validation/core.user.login");
   const { errors, isValid } = validateLoginInput(req.body);
 
-  if (!isValid) return res.status(400).json(errors);
+  if (!isValid) {
+    console.error("Not valid");
+    return res.status(400).json(errors);
+  }
 
   const { email, password } = req.body;
   const user = await modelCoreUser.findOne({ email }).exec();
+  // console.log("user", user);
 
   if (!user) {
+    console.error("User not found");
     errors.email = "User not found";
     return res.status(404).json(errors);
   }
 
   const role = await modelCoreRole.findOne({ role: user.role }).exec();
+  // console.log("role", role);
 
   bcrypt.compare(password, user.password).then((isMatch) => {
     if (!isMatch) {
+      console.error("Incorrect Password");
       errors.password = "Incorrect Password";
       return res.status(401).json(errors);
     }
@@ -74,7 +81,7 @@ const login = async (req, res) => {
 
     jwt.sign(payload, config.get("jwtPhrase"), jwtOptions, (err, token) => {
       if (err) {
-        // console.error("There is some error in token", err);
+        console.error("There is some error in token", err);
         errors.sign = "There is some error in token";
         return res.status(401).json(errors);
       }

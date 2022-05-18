@@ -17,7 +17,8 @@ export const UserLoginPage = () => {
 
   const loginHandler = async () => {
     const data = await request('/api/auth/login', 'POST', { ...form })
-    auth.login(data.token, data.userId)
+    console.log('data form resizeBy', data)
+    auth.login(data.token, data.user, data.role)
   }
 
   return (

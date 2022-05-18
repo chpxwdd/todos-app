@@ -5,14 +5,14 @@ const modelTodo = require("../models/todo");
 
 const list = async (req, res) => {
   const todoList = await modelTodo.find().exec();
+  console.log("todo list", req);
   return res.json(todoList);
 };
 
 const create = async (req, res) => {
-
   try {
     // const { title } = req.body;
-    const title = "todo test"
+    const title = "todo test";
     const todo = new modelTodo({
       title,
       owner: req.user.userId,

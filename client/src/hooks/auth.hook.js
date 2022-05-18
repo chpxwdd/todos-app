@@ -8,13 +8,13 @@ export const useAuth = () => {
   const [user, setUser] = useState(null)
   const [role, setRole] = useState(null)
 
-  const login = useCallback((data) => {
-    const { token, user, role } = data
+  const login = useCallback((token, user, role) => {
+    console.log()
     setToken(token)
     setRole(role)
     setUser(user)
 
-    localStorage.setItem(storageName, JSON.stringify(data))
+    localStorage.setItem(storageName, JSON.stringify({ user, role, token }))
   }, [])
 
   const logout = useCallback(() => {
@@ -25,8 +25,8 @@ export const useAuth = () => {
   }, [])
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(storageName))
-    if (data && data.token && data.user && data.role) login(data)
+    const { token, user, role } = JSON.parse(localStorage.getItem(storageName))
+    if (user && role && token) login(token, user, role)
     setReady(true)
   }, [login])
 
