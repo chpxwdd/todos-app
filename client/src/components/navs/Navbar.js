@@ -6,8 +6,8 @@ export const Navbar = () => {
   const navigate = useNavigate()
   const auth = useContext(AuthContext)
 
-  const logoutHandler = (event) => {
-    event.preventDefault()
+  const logoutHandler = (e) => {
+    e.preventDefault()
     auth.logout()
     navigate('/')
   }
@@ -55,7 +55,7 @@ export const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                GeoNames Tools
+                Geo
               </span>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdownGeo">
                 <li>
@@ -79,9 +79,9 @@ export const Navbar = () => {
 
           <ul className="navbar-nav d-flex">
             <li className="nav-item">
-              <a className="nav-link" href="/" onClick={logoutHandler}>
+              <NavLink onClick={logoutHandler} className="nav-link" to="/">
                 Logout
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
