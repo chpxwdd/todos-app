@@ -4,7 +4,7 @@ import { AuthContext } from './context/AuthContext'
 import { Spinner } from './components/bootstrap/Spinner'
 import { useAuth } from './hooks/auth.hook'
 import { useRoutes } from './routes'
-import './styles/todos.scss'
+// import './styles/todos.scss'
 
 export const App = () => {
   const { token, login, logout, user, role, ready } = useAuth()
